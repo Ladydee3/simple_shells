@@ -110,7 +110,7 @@ typedef struct builtin
 } builtin_table;
 
 /* toem_shloop.c */
-int hsh(info_t *, char *);
+int hsh(info_t *, char **);
 int find_builtin(info_t *);
 void find_cmd(info_t *);
 void fork_cmd(info_t *);
@@ -160,7 +160,7 @@ int bfree(void **);
 
 /*toem_atoi.c */
 int interactive(info_t *);
-int is_delim(char a, char *delim);
+int is_delim(char, char *);
 int is_alpha(int);
 int _atoi(char *);
 

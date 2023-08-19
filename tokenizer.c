@@ -14,9 +14,9 @@ char **_strtow(char *str, char delim)
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 	if (!delim)
-		delim = " ";
+		delim = ' ';
 	for (a = 0; str[a] != '\0'; a++)
-		if (!is_delim(str[a], delim) && (is_delim(str[a + 1], delim) || !str[a + 1]))
+		if (!is_delim(str[a], &delim) && (is_delim(str[a + 1], &delim) || !str[a + 1]))
 			numwords++;
 
 	if (numwords == 0)
@@ -26,10 +26,10 @@ char **_strtow(char *str, char delim)
 		return (NULL);
 	for (a = 0, b = 0; b < numwords; b++)
 	{
-		while (is_delim(str[a], delim))
+		while (is_delim(str[a], &delim))
 			a++;
 		x = 0;
-		while (!is_delim(str[a + x], delim) && str[a + x])
+		while (!is_delim(str[a + x], &delim) && str[a + x])
 			x++;
 		c[b] = malloc((x + 1) * sizeof(char));
 		if (!c[b])
@@ -61,7 +61,7 @@ char **strtow2(char *str, char *delim)
 	if (str == NULL || str[0] == 0)
 		return (NULL);
 	for (a = 0; str[a] != '\0'; a++)
-		if ((str[a] != delim && str[a + 1] == delim) || (str[a] != delim && !str[a + 1]) || str[a + 1] == delim)
+		if ((str[a] != *delim && str[a + 1] == *delim) || (str[a] != *delim && !str[a + 1]) || str[a + 1] == *delim)
 			numwords++;
 	if (numwords == 0)
 		return (NULL);
@@ -70,11 +70,15 @@ char **strtow2(char *str, char *delim)
 		return (NULL);
 	for (a = 0, b = 0; b < numwords; b++)
 	{
-		while (str[a] == delim && str[a] != delim)
+		while (str[a] != '\0' && str[a] == *delim)
+		{
 			a++;
+		}
 		x = 0;
-		while (str[a + x] != delim && str[a + x] && str[a + x] != delim)
-			x++;
+		while (str[a + x] != '\0' && str[a + x] == *delim)
+			{
+				x++;
+			}
 		c[b] = malloc((x + 1) * sizeof(char));
 		if (!c[b])
 		{

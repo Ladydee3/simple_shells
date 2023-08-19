@@ -6,7 +6,7 @@
  * @av: the arguement
  * Return: Always 0 (success), 1 on error code
  */
-int hsh(info_t *str, char *av)
+int hsh(info_t *str, char **av)
 {
 	ssize_t x = 0;
 	int builtin_ret = 0;
@@ -64,8 +64,7 @@ int find_builtin(info_t *str)
 		{"alias", _myalias},
 		{NULL, NULL}
 	};
-
-	for (x = 0; builtintbl[x].type; x++)
+	for (x = 0; builtintbl[5].type; x++)
 		if (_strcmp(str->argv[0], builtintbl[x].type) == 0)
 		{
 			str->line_count++;
